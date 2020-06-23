@@ -1,0 +1,400 @@
+{
+    "clientes": {
+        "table": "clientes",
+        "caption": "Clientes",
+        "sql": "SELECT * FROM clientes",
+        "header": "",
+        "footer": "",
+        "columns": {
+            "id": {
+                "type": "int",
+                "caption": "id",
+                "helper": "id",
+                "capitalize": null,
+                "lenght_min": null,
+                "lenght_max": null,
+                "allowed_chars": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ",
+                "visible": true,
+                "enabled": false,
+                "decimal_places": 0,
+                "min": null,
+                "max": null
+            },
+            "codigo": {
+                "type": "str",
+                "caption": "C\u00f3digo",
+                "helper": "codigo",
+                "capitalize": null,
+                "lenght_min": null,
+                "lenght_max": null,
+                "allowed_chars": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+                "visible": true,
+                "enabled": true
+            },
+            "rif": {
+                "type": "str",
+                "caption": "RIF",
+                "helper": "rif",
+                "capitalize": null,
+                "lenght_min": null,
+                "lenght_max": null,
+                "allowed_chars": "JGVE0123456789",
+                "visible": true,
+                "enabled": true
+            },
+            "razon": {
+                "type": "str",
+                "caption": "Raz\u00f3n Social",
+                "helper": "razon",
+                "capitalize": null,
+                "lenght_min": null,
+                "lenght_max": null,
+                "allowed_chars": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ",
+                "visible": true,
+                "enabled": true
+            },
+            "direccion": {
+                "type": "str",
+                "caption": "Direcci\u00f3n Fiscal",
+                "helper": "direccion",
+                "capitalize": null,
+                "lenght_min": null,
+                "lenght_max": null,
+                "allowed_chars": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ",
+                "visible": true,
+                "enabled": true
+            },
+            "tlf": {
+                "type": "str",
+                "caption": "Tlf",
+                "helper": "separados por coma ','",
+                "capitalize": null,
+                "lenght_min": null,
+                "lenght_max": null,
+                "allowed_chars": "0123456789,",
+                "visible": true,
+                "enabled": true
+            },
+            "email": {
+                "type": "str",
+                "caption": "email",
+                "helper": "separados por coma ','",
+                "capitalize": null,
+                "lenght_min": null,
+                "lenght_max": null,
+                "allowed_chars": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-.@,",
+                "visible": true,
+                "enabled": true
+            }
+        }
+    },
+    "productos": {
+        "table": "productos",
+        "caption": "Productos",
+        "sql": "SELECT * FROM productos",
+        "header": "",
+        "footer": "",
+        "columns": {
+            "id": {
+                "type": "int",
+                "caption": "id",
+                "helper": "id",
+                "capitalize": null,
+                "lenght_min": null,
+                "lenght_max": null,
+                "allowed_chars": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ",
+                "visible": true,
+                "enabled": false,
+                "decimal_places": 0,
+                "min": null,
+                "max": null
+            },
+            "codigo": {
+                "type": "str",
+                "caption": "C\u00f3digo",
+                "helper": "codigo",
+                "capitalize": null,
+                "lenght_min": null,
+                "lenght_max": null,
+                "allowed_chars": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-",
+                "visible": true,
+                "enabled": true
+            },
+            "nombre": {
+                "type": "str",
+                "caption": "Nombre del Producto",
+                "helper": "nombre",
+                "capitalize": null,
+                "lenght_min": null,
+                "lenght_max": null,
+                "allowed_chars": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 _-",
+                "visible": true,
+                "enabled": true
+            },
+            "precio": {
+                "type": "float",
+                "caption": "Precio",
+                "helper": "precio",
+                "capitalize": null,
+                "lenght_min": null,
+                "lenght_max": null,
+                "allowed_chars": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ",
+                "visible": true,
+                "enabled": true,
+                "decimal_places": 2,
+                "min": null,
+                "max": null
+            },
+            "moneda": {
+                "type": "str",
+                "caption": "Moneda",
+                "helper": "Bs por defecto",
+                "capitalize": null,
+                "lenght_min": null,
+                "lenght_max": null,
+                "allowed_chars": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+                "visible": true,
+                "enabled": true
+            },
+            "cantidad": {
+                "type": "float",
+                "caption": "Cantidad",
+                "helper": "1 por defecto",
+                "capitalize": null,
+                "lenght_min": null,
+                "lenght_max": null,
+                "allowed_chars": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ",
+                "visible": true,
+                "enabled": true,
+                "decimal_places": 2,
+                "min": null,
+                "max": null
+            },
+            "unidad": {
+                "type": "str",
+                "caption": "Unidad",
+                "helper": "unidad",
+                "capitalize": null,
+                "lenght_min": null,
+                "lenght_max": null,
+                "allowed_chars": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ",
+                "visible": true,
+                "enabled": true
+            }
+        }
+    },
+    "estimados": {
+        "table": "estimados",
+        "caption": "estimados",
+        "sql": "SELECT * FROM estimados",
+        "header": "",
+        "footer": "",
+        "columns": {
+            "id": {
+                "type": "int",
+                "caption": "id",
+                "helper": "id",
+                "capitalize": null,
+                "lenght_min": null,
+                "lenght_max": null,
+                "allowed_chars": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ",
+                "visible": true,
+                "enabled": false
+            },
+            "id_cliente": {
+                "type": "str",
+                "caption": "id_cliente",
+                "helper": "id_cliente",
+                "capitalize": null,
+                "lenght_min": null,
+                "lenght_max": null,
+                "allowed_chars": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ",
+                "visible": true,
+                "enabled": true
+            },
+            "fecha": {
+                "type": "str",
+                "caption": "fecha",
+                "helper": "fecha",
+                "capitalize": null,
+                "lenght_min": null,
+                "lenght_max": null,
+                "allowed_chars": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ",
+                "visible": true,
+                "enabled": true
+            },
+            "status": {
+                "type": "str",
+                "caption": "status",
+                "helper": "status",
+                "capitalize": null,
+                "lenght_min": null,
+                "lenght_max": null,
+                "allowed_chars": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ",
+                "visible": true,
+                "enabled": true
+            }
+        }
+    },
+    "estimados_renglones": {
+        "table": "estimados_renglones",
+        "caption": "estimados_renglones",
+        "sql": "SELECT * FROM estimados_renglones",
+        "header": "",
+        "footer": "",
+        "columns": {
+            "id": {
+                "type": "str",
+                "caption": "id",
+                "helper": "id",
+                "capitalize": null,
+                "lenght_min": null,
+                "lenght_max": null,
+                "allowed_chars": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ",
+                "visible": true,
+                "enabled": true
+            },
+            "id_estimados": {
+                "type": "str",
+                "caption": "id_estimados",
+                "helper": "id_estimados",
+                "capitalize": null,
+                "lenght_min": null,
+                "lenght_max": null,
+                "allowed_chars": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ",
+                "visible": true,
+                "enabled": true
+            },
+            "id_productos": {
+                "type": "str",
+                "caption": "id_productos",
+                "helper": "id_productos",
+                "capitalize": null,
+                "lenght_min": null,
+                "lenght_max": null,
+                "allowed_chars": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ",
+                "visible": true,
+                "enabled": true
+            },
+            "precio": {
+                "type": "str",
+                "caption": "precio",
+                "helper": "precio",
+                "capitalize": null,
+                "lenght_min": null,
+                "lenght_max": null,
+                "allowed_chars": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ",
+                "visible": true,
+                "enabled": true
+            },
+            "moneda": {
+                "type": "str",
+                "caption": "moneda",
+                "helper": "moneda",
+                "capitalize": null,
+                "lenght_min": null,
+                "lenght_max": null,
+                "allowed_chars": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ",
+                "visible": true,
+                "enabled": true
+            },
+            "cantidad": {
+                "type": "str",
+                "caption": "cantidad",
+                "helper": "cantidad",
+                "capitalize": null,
+                "lenght_min": null,
+                "lenght_max": null,
+                "allowed_chars": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ",
+                "visible": true,
+                "enabled": true
+            }
+        }
+    },
+    "gastos": {
+        "table": "gastos",
+        "caption": "gastos",
+        "sql": "SELECT * FROM gastos",
+        "header": "",
+        "footer": "",
+        "columns": {
+            "id": {
+                "type": "str",
+                "caption": "id",
+                "helper": "id",
+                "capitalize": null,
+                "lenght_min": null,
+                "lenght_max": null,
+                "allowed_chars": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ",
+                "visible": true,
+                "enabled": true
+            },
+            "type": {
+                "type": "str",
+                "caption": "type",
+                "helper": "type",
+                "capitalize": null,
+                "lenght_min": null,
+                "lenght_max": null,
+                "allowed_chars": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ",
+                "visible": true,
+                "enabled": true
+            },
+            "locales_codigo": {
+                "type": "str",
+                "caption": "locales_codigo",
+                "helper": "locales_codigo",
+                "capitalize": null,
+                "lenght_min": null,
+                "lenght_max": null,
+                "allowed_chars": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ",
+                "visible": true,
+                "enabled": true
+            },
+            "documento": {
+                "type": "str",
+                "caption": "documento",
+                "helper": "documento",
+                "capitalize": null,
+                "lenght_min": null,
+                "lenght_max": null,
+                "allowed_chars": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ",
+                "visible": true,
+                "enabled": true
+            },
+            "descripcion": {
+                "type": "str",
+                "caption": "descripcion",
+                "helper": "descripcion",
+                "capitalize": null,
+                "lenght_min": null,
+                "lenght_max": null,
+                "allowed_chars": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ",
+                "visible": true,
+                "enabled": true
+            },
+            "precio": {
+                "type": "str",
+                "caption": "precio",
+                "helper": "precio",
+                "capitalize": null,
+                "lenght_min": null,
+                "lenght_max": null,
+                "allowed_chars": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ",
+                "visible": true,
+                "enabled": true
+            },
+            "cantidad": {
+                "type": "str",
+                "caption": "cantidad",
+                "helper": "cantidad",
+                "capitalize": null,
+                "lenght_min": null,
+                "lenght_max": null,
+                "allowed_chars": "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ",
+                "visible": true,
+                "enabled": true
+            }
+        }
+    }
+}

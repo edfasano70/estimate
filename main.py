@@ -2,17 +2,14 @@
 # -*- coding: utf-8 -*-
 # Programa de gestión de gastos de condominio
 
-from contapiso import *
+from estimate import *
 
-APP_NAME	=	'Sistema de Gestión Condominial'
-APP_ALIAS	=	'Contapiso'
-VERSION 	=	'0.2.9 pre-beta'
+APP_NAME	=	'Sistema Simple de Generación y Envío de Estimados'
+APP_ALIAS	=	'GESSE'
+VERSION 	=	'0.1 pre-alpha'
 
 INIFILE 	=	__name__.replace('_','')+'.json'
-DATABASE 	=	'database/condominio.db3'
-
-table 		=	'locales'
-period 		=	'012020'
+DATABASE 	=	'database/estimate.db3'
 
 table_parameters={}
 table_parameters_initial={}
@@ -26,14 +23,7 @@ def table_selector():
 	global DATABASE,table_parameters
 	flag=False
 	title='Tablas Disponibles'
-	tables=[]
-	for t in database_table_list(DATABASE):
-		if 'gastos' not in t:
-			tables.append(t)
-		else:
-			if flag==False:
-				flag=True
-				tables.append('gastos')
+	tables=database_table_list(DATABASE)
 
 	menu_tables=[]
 	for t in tables:
@@ -65,40 +55,6 @@ def table_selector():
 #END OF APPLICATION SPECIFIC WIDGETS
 
 #APPLICATION SPECIFIC FUNCTIONS
-
-def new_period():
-	#	Función:
-	#		Crea una copia de la tabla gastos con el nombre gastos_MMYYYY donde MMYYYY es el
-	#		período 
-	global DATABASE,period
-	if 'gastos_'+period not in database_table_list(DATABASE):
-
-		create_gastos_sql="CREATE TABLE gastos{} (\
-		    id             INTEGER      PRIMARY KEY ASC AUTOINCREMENT,\
-		    type           VARCHAR (4)  DEFAULT G,\
-		    locales_codigo VARCHAR (10) DEFAULT (0),\
-		    documento      VARCHAR (80),\
-		    descripcion    VARCHAR (80),\
-		    precio         REAL         DEFAULT (0.0),\
-		    cantidad       REAL         DEFAULT (0.0) \
-		);".format('_'+period)
-
-		# create_gastos_sql="CREATE TABLE gastos{} ( \
-		#     id             INTEGER        PRIMARY KEY ASC AUTOINCREMENT, \
-		#     locales_codigo VARCHAR( 10 ),\
-		#     documento      VARCHAR( 80 ),\
-		#     descripcion    VARCHAR( 80 ),\
-		#     precio         REAL           DEFAULT ( 0.0 ),\
-		#     cantidad       REAL           DEFAULT ( 0.0 ));".format('_'+period)
-
-		con = lite.connect(DATABASE)
-		cur = con.cursor()
-		cur.execute(create_gastos_sql)
-		con.close()
-		console_msgbox('alert','Se creó la tabla gastos_'+period)
-	else:
-		pass
-	console_msgbox('ok','Cambio a período {}/{}'.format(period[0:2],period[2:]))
 
 def modify_table_row(id_name,id_value):
 	# 	Función:
@@ -328,15 +284,15 @@ def validate_app_parameters():
 	#		Que regrese un bool que sea True si se modificó 'table_parameters'
 	global DATABASE,table,period,app_parameters
 
-	console_msgbox('ok','Validando parámetros de Aplicación')
-	assign_value_2_dictkey(app_parameters,'database',DATABASE)
-	DATABASE=app_parameters['database']
-	# assign_value_2_dictkey(app_parameters,'table',table)
-	# table=app_parameters['table']
-	assign_value_2_dictkey(app_parameters,'period',period)
-	period=app_parameters['period']
-	assign_value_2_dictkey(app_parameters,'sender_email','some@gmail.com')
-	assign_value_2_dictkey(app_parameters,'sender_password','123456')
+	# console_msgbox('ok','Validando parámetros de Aplicación')
+	# assign_value_2_dictkey(app_parameters,'database',DATABASE)
+	# DATABASE=app_parameters['database']
+	# # assign_value_2_dictkey(app_parameters,'table',table)
+	# # table=app_parameters['table']
+	# assign_value_2_dictkey(app_parameters,'period',period)
+	# period=app_parameters['period']
+	# assign_value_2_dictkey(app_parameters,'sender_email','some@gmail.com')
+	# assign_value_2_dictkey(app_parameters,'sender_password','123456')
 
 def export_table_to_xls(): # <-falta descripcion
 	global DATABASE,table,period
@@ -728,26 +684,7 @@ def option_tables():
 	sel=table_selector()
 	if sel!=None:
 		table=sel
-		if table=='gastos':
-			table='gastos_'+period
-			table_parameters[table]=table_parameters['gastos'].copy()
-			table_parameters[table]['sql']=table_parameters['gastos']['sql'].replace('gastos','gastos_'+period)
-			table_parameters[table]['header']=table_parameters['gastos']['header'].format(period[0:2],period[2:])
-			table_parameters[table]['table']=table
 		table_crud_management()
-		if table[0:6]=='gastos':
-			table_parameters.pop(table)
-
-def option_period():
-	#	*** SUBRUTINA ***
-	#	Función:
-	#		Cambia el período
-	global DATABASE,table,table_parameters,period
-	month=input('Mes [MM] ? ')[0:2]
-	year=input('Año [YYYY] ? ')[0:4]
-	period=month+year
-	new_period()
-	input()
 
 def option_import():
 	#	*** SUBRUTINA ***
@@ -813,14 +750,14 @@ def option_email_invoices():
 #END OF OPTIONS SUBROUTINES
 
 def main():
-	global DATABASE,table,period,table_parameters,table_parameters_initial,app_parameters,INIFILE
+	global DATABASE,table,period,table_parameters,table_parameters_initial,app_parameters,app_parameters_initial,INIFILE
 
 	#Proceso de INIFILE 
 	console_msgbox('ok','Cargando archivo de parámetros de Aplicación')
 	try:
 		with open(INIFILE) as file: app_parameters = json.load(file)
 	except:
-		console_msgbox('alert','archivo Json: <{}> no existe. Se crea plantilla vacía...'.format(INIFILE),True)
+		console_msgbox('alert','archivo Json: <{}> no existe. Se crea plantilla vacía...'.format(INIFILE),False)
 		app_parameters={}
 
 	app_parameters_initial=app_parameters.copy()
@@ -832,20 +769,16 @@ def main():
 	try:
 		with open(DATABASE+'.json') as file: table_parameters = json.load(file)
 	except:
-		console_msgbox('alert','archivo Json: <{}> no existe. Se crea plantilla vacía...'.format(DATABASE+'.json'),True)
+		console_msgbox('alert','archivo Json: <{}> no existe. Se crea plantilla vacía...'.format(DATABASE+'.json'),False)
 		table_parameters={}
 
-	# table_parameters_initial=table_parameters.copy()
+	table_parameters_initial=table_parameters.copy()
 
 	validate_table_parameters()
 
 	while True:
 		clear()
-		say(
-			APP_ALIAS,
-			font="slick",
-			align='left'
-		)
+		print(APP_ALIAS)
 		dummy='{}{} ver. {}{}'.format(Style.BRIGHT,APP_NAME,VERSION,Style.RESET_ALL)
 		print(dummy)
 		print('-'*len(dummy))
@@ -853,7 +786,6 @@ def main():
 		menu1=[]
 		menu1.append(['Manejo de Datos','option_tables()'])
 		menu1.append(['Mantenimiento de Tablas',''])
-		menu1.append(['Cambio de Período.{} Actual → {}/{}{}'.format(Style.BRIGHT,period[0:2],period[2:],Style.RESET_ALL),'option_period()'])
 		menu1.append(['Facturas (Generar y Enviar)',''])
 
 		menu2=[]
@@ -892,12 +824,6 @@ def main():
 			eval(menu1[option-1][1])
 	clear()
 
-	# if console_input('Guardar cambios en Configuración? (s/n)').upper()=='S':
-	# 	console_msgbox('alert','GUARDANDO cambios en el archivo Json')
-	# 	fic = open(DATABASE+'.json', "w")
-	# 	fic.write(json.dumps(table_parameters,indent=4))
-	# 	fic.close()
-
 	try:
 		with open(DATABASE+'.json') as file: table_parameters_initial = json.load(file)
 	except:
@@ -905,23 +831,19 @@ def main():
 		table_parameters_initial={}
 
 	if table_parameters==table_parameters_initial:
-		pass
-		# console_msgbox('ok','SIN cambios en archivo <database>.Json')
+		console_msgbox('ok','SIN cambios en archivo <database>.Json')
 	else:
 		console_msgbox('alert','GUARDANDO cambios en el archivo < [database] >.json')
 		fic = open(DATABASE+'.json', "w")
 		fic.write(json.dumps(table_parameters,indent=4))
 		fic.close()
 		console_msgbox('alert','GUARDANDO respaldo')
-		fic = open('bak/'+DATABASE+'{}.json'.format('')) #format(date_time_now()), "w")
+		fic = open(DATABASE+'.json.bak', "w") 
 		fic.write(json.dumps(table_parameters_initial,indent=4))
 		fic.close()
 
-	app_parameters['period']=period
-
 	if app_parameters==app_parameters_initial:
-		pass
-		# console_msgbox('ok','nada cambió')
+		console_msgbox('ok','nada cambió')
 	else:
 		console_msgbox('alert','ACTUALIZANDO < main.json >')
 		fic = open(INIFILE, "w")

@@ -2,3 +2,6 @@
 * Pendings: *
 *************
 
+implementar flask
+crear plantilla
+implementar bootstrap
