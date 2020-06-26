@@ -1,6 +1,5 @@
 # modulo de rutinas del programa condominio
 import json
-# import condo
 import fpdf
 from fpdf import FPDF
 import yagmail
@@ -9,9 +8,9 @@ import sys
 import os
 import colorama
 from colorama import *
-import cfonts
-from cfonts import render, say
-colorama.init(autoreset=True)
+# colorama.init(autoreset=True)
+from flask import Flask, request, render_template
+# from flask import request
 
 #CONSOLE WIDGETS
 

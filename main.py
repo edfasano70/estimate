@@ -859,11 +859,80 @@ def main():
 # print(console_input('entra algo',default='esto es'))
 # sys.exit()
 
+app=Flask(__name__, template_folder='templates') #templates es por defecto
+
+@app.route('/')
+
+def index():
+	return render_template('index.html')
+
+@app.route('/param')
+
+def param():
+	param=request.args.get('param','None')
+	return 'subrutina de parámetros... param={}'.format(param)
+
+@app.route('/table/list')
+
+def table_list():
+	tables=database_table_list(DATABASE)
+	res='<div class="container"><h4>Listado de Tablas</h4>'
+	res+='<table class="table">'
+	for t in tables:
+		res+='<tr><td><a href="{}">{}</a></td></tr>'.format(t,t)
+	res+='</table>'
+	res+='</div>'
+	return render_template('index.html',tabla=res)
+
+
+@app.route('/table/<table_name>')
+
+def table(table_name):
+	res='<div class="container"><h4>Tabla: {} en {}</h4>'.format(table_name,DATABASE)
+
+	elem=query_get(DATABASE,'SELECT * FROM {}'.format(table_name))
+
+	first=True
+	res+='<table class="table table-hover table-sm">'
+	for e in elem:
+		if first:
+			k=e.keys()
+			res+='<thead class="thead-light"><tr>'
+			for k1 in k:
+				res+='<th>{}</th>'.format(k1)	
+			res+='</tr></thead><tbody>'
+			first=False
+		res+='<tr>'
+		for k1 in k:
+			res+='<td>{}</td>'.format(e[k1])	
+		res+='</tr>'
+	res+='</tbody></table>'
+
+
+
+	# res+='<div>{}</div>'.format(elem)
+	# res+='<a href="/table/list"><i class="material-icons">view_list</i>Listado de Tablas</a>'
+	res+='<button type="button" class="btn btn-outline-primary" onclick="window.location.href=\'/table/list\';">Tablas</button>'
+	res+='</div>'
+	return render_template('index.html',tabla=res)
+
+@app.route('/boot4')
+
+def boot_test():
+	return render_template('boot4.html')
+
+@app.route('/image')
+
+def image():
+	return render_template('image.html')
 
 if __name__ == '__main__':
-	main()
-else:
-	console_msgbox('error','Este programa no puede ser llamado como módulo\n')
-	console_msgbox('ok','Bye!\n')
-sys.exit()
+	app.run(debug=True, port=8000) #puerto por defecto 5000 debug por defecto=False
+
+# if __name__ == '__main__':
+# 	main()
+# else:
+# 	console_msgbox('error','Este programa no puede ser llamado como módulo\n')
+# 	console_msgbox('ok','Bye!\n')
+# sys.exit()
 
